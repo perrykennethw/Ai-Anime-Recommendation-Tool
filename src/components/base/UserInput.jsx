@@ -1,4 +1,4 @@
-export default function CustomInput(props) {
+export default function UserInput(props) {
     return (
       <input 
         className="rounded"

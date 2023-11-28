@@ -25,7 +25,7 @@ function useFetchData(urls) {
     }
 
     fetchData();
-  }, [urls]); // Dependency array ensures this runs only if URLs array changes
+  }, [urls]);
 
   return { data, loading, error };
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import OpenAI from "openai";
-import CustomInput from '../base/CustomInput.jsx';
+import UserInput from '../base/UserInput.jsx';
 import SubmitButton from '../base/SubmitButton.jsx';
 import AnimeDisplayImages from '../base/AnimeDisplayImages.jsx';
 import { createPortal } from 'react-dom';
@@ -69,9 +69,9 @@ function Home() {
           isModal={false}
           />
         <br />
-        <CustomInput placeholder="Naruto"  onBlur={e => setFavAnimeByIndex(0, e.target.value)}/>
-        <CustomInput placeholder="Dragon Ball Z"  onBlur={e => setFavAnimeByIndex(1, e.target.value)}/>
-        <CustomInput placeholder="One Piece" onBlur={e => setFavAnimeByIndex(2, e.target.value)}/>
+        <UserInput placeholder="Naruto"  onBlur={e => setFavAnimeByIndex(0, e.target.value)}/>
+        <UserInput placeholder="Dragon Ball Z"  onBlur={e => setFavAnimeByIndex(1, e.target.value)}/>
+        <UserInput placeholder="One Piece" onBlur={e => setFavAnimeByIndex(2, e.target.value)}/>
         <br />
         <SubmitButton className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" value="Get Results!" />
         <br />
