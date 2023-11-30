@@ -13,7 +13,7 @@ function Loading() {
     );
 }
 
-const AnimeDisplayImages = memo(function AnimeDisplayImages({ animeNames: animeNames, loading: chatLoading }) {
+const AnimeDisplayImages = memo(function AnimeDisplayImages({ loading: chatLoading, animeNames: animeNames}) {
     const urls = useMemo(() => [
         `https://kitsu.io/api/edge/anime?filter[text]=${animeNames[0]}`,
         `https://kitsu.io/api/edge/anime?filter[text]=${animeNames[1]}`,
@@ -33,7 +33,6 @@ const AnimeDisplayImages = memo(function AnimeDisplayImages({ animeNames: animeN
             {
                 data.map((url, index) => {
                     return (
-                        // update dis. Only need one wrapper.. you doing too much!
                         <div key={index} className="flex-none max-w-md rounded overflow-hidden shadow-lg">
                             {/* Update alt tag... maybe you can get something from the api? */}
                             <img src={url.data[0].attributes.posterImage.medium} className="w-full h-68 object-cover object-center rounded" alt="Image description" loading="lazy"/>
@@ -46,8 +45,8 @@ const AnimeDisplayImages = memo(function AnimeDisplayImages({ animeNames: animeN
 });
 
 AnimeDisplayImages.propTypes = {
-    animeNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    animeNames: PropTypes.array
 };
 
 export default AnimeDisplayImages;

@@ -1,19 +1,22 @@
 import { useState } from 'react';
+import { useAtom } from 'jotai';
+import { chatDataAtom, favAnimeAtom } from '../state/Atom.jsx';
 import OpenAI from "openai";
 import UserInput from '../base/UserInput.jsx';
 import SubmitButton from '../base/SubmitButton.jsx';
 import AnimeDisplayImages from '../base/AnimeDisplayImages.jsx';
 import { createPortal } from 'react-dom';
 import Modal from './Modal.jsx';
+
 const openai = new OpenAI({
   apiKey: import.meta.env.VITE_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true // Add this line
 });
 
 function Home() {
-  const [favAnime, setFavAnime] = useState(['Naruto', 'Dragon Ball Z', 'One Piece']);
+  const [favAnime, setFavAnime] = useAtom(favAnimeAtom);
   const [showModal, setShowModal] = useState(false);
-  const [chatData, setChatData] = useState({});
+  const [setChatData] = useAtom(chatDataAtom);
   const [chatLoading, setChatLoading] = useState(false);
   const [chatError, setChatError] = useState(null);  
 
@@ -76,7 +79,7 @@ function Home() {
         <SubmitButton className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" value="Get Results!" />
         <br />
         {showModal && createPortal(
-          <Modal chatData={chatData} chatLoading={chatLoading} onClose={() => setShowModal(false)} />,
+          <Modal chatLoading={chatLoading} onClose={() => setShowModal(false)} />,
           document.body
         )}
       </form>

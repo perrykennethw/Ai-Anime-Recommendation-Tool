@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 import AnimeDisplayImages from '../base/AnimeDisplayImages.jsx';
+import { chatDataAtom } from '../state/Atom.jsx';
+import { useAtom } from 'jotai';
 
-export default function Modal({ onClose, chatData, chatLoading }) {
+export default function Modal({ onClose, chatLoading }) {
+    const [chatData] = useAtom(chatDataAtom);
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
             <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">   
@@ -34,6 +37,5 @@ export default function Modal({ onClose, chatData, chatLoading }) {
 
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    chatData: PropTypes.object.isRequired,
     chatLoading: PropTypes.bool.isRequired
 };
