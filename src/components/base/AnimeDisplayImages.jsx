@@ -13,7 +13,7 @@ function Loading() {
     );
 }
 
-const AnimeDisplayImages = memo(function AnimeDisplayImages({ loading: chatLoading, animeNames: animeNames}) {
+const AnimeDisplayImages = memo(function AnimeDisplayImages({ animeNames: animeNames, loading: chatLoading, isModal: isModal }) {
     const urls = useMemo(() => [
         `https://kitsu.io/api/edge/anime?filter[text]=${animeNames[0]}`,
         `https://kitsu.io/api/edge/anime?filter[text]=${animeNames[1]}`,
@@ -27,6 +27,40 @@ const AnimeDisplayImages = memo(function AnimeDisplayImages({ loading: chatLoadi
     } 
 
     if (error) return <div>Error: {error.message}</div>;
+
+    if (isModal) {
+        return (
+            <div className="flex justify-center mb-10 space-x-4">
+                {
+                    data.map((url, index) => {
+                        if (index === 0) {
+                            return (
+                                <div key={index} className="transform scale-110 -rotate-6">
+                                    {/* Update alt tag... maybe you can get something from the api? */}
+                                    <img src={url.data[0].attributes.posterImage.medium} className="w-full h-68 object-cover object-center rounded" alt="Image description" loading="lazy"/>
+                                </div>
+                            );
+                        } else if (index === 1) {
+                            return (
+                                <div key={index} className="transform scale-110">
+                                    {/* Update alt tag... maybe you can get something from the api? */}
+                                    <img src={url.data[0].attributes.posterImage.medium} className="w-full h-68 object-cover object-center rounded" alt="Image description" loading="lazy"/>
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <div key={index} className="transform scale-110 rotate-6">
+                                    {/* Update alt tag... maybe you can get something from the api? */}
+                                    <img src={url.data[0].attributes.posterImage.medium} className="w-full h-68 object-cover object-center rounded" alt="Image description" loading="lazy"/>
+                                </div>
+                            );
+                        }
+                    })
+                }
+            </div>
+        );
+    }
+        
 
     return (
         <div className="flex justify-center pt-10 space-x-4">
@@ -45,8 +79,9 @@ const AnimeDisplayImages = memo(function AnimeDisplayImages({ loading: chatLoadi
 });
 
 AnimeDisplayImages.propTypes = {
+    animeNames: PropTypes.arrayOf(PropTypes.string).isRequired,
     loading: PropTypes.bool,
-    animeNames: PropTypes.array
+    isModal: PropTypes.bool.isRequired
 };
 
 export default AnimeDisplayImages;
